@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe({
-      next: data => {
+    this.authService.login(username, password).subscribe(
+      data => {
         this.storageService.saveUser(data);
 
         this.isLoginFailed = false;
@@ -38,11 +38,10 @@ export class LoginComponent implements OnInit {
         this.roles = this.storageService.getUser().roles;
         this.reloadPage();
       },
-      error: err => {
+      err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
-      }
-    });
+      });
   }
 
   reloadPage(): void {
