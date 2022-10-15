@@ -29,22 +29,10 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe(
-      data => {
-        this.storageService.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
-        this.reloadPage();
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      });
-  }
-
-  reloadPage(): void {
-    window.location.reload();
+    this.authService.login(username, password).subscribe
+    ((response) => {
+      window.alert('Siiii');
+    });
+  
   }
 }
