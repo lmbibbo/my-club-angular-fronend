@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe
     ((response) => {
-      window.alert('Siiii');
+      console.log(response.token)
     });
   
   }

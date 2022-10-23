@@ -23,9 +23,14 @@ export class AuthService {
 
   login(username: string, password: string) {
     
-    return this.apiService.login(username,password).pipe(
-      tap((response: any) => {
-        localStorage.setItem('token-auth',response.token);
+    let cuerpo = `{"username":"${username}", "password":"${password}"}`;
+    return this.http.post(AUTH_API + '/api/auth/login', cuerpo, {responseType: "text",
+       observe: 'body'}).pipe(
+      tap((res: any) => {
+        console.log(res);
+        //localStorage.setItem('token-auth',response.token);
+      },(err)=> {
+        console.log(err);
       })
     );
   } 
