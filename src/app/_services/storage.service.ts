@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const USER_KEY = 'auth-user';
+const USER_KEY = 'Bearer-key';
 
 @Injectable({
   providedIn: 'root'
@@ -9,30 +9,36 @@ export class StorageService {
   constructor() {}
 
   clean(): void {
-    window.sessionStorage.clear();
+    localStorage.clear();
   }
 
-  public saveUser(user: any): void {
-    //window.sessionStorage.removeItem(USER_KEY);
-    //window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-    console.log(user);
+  public saveUser(key: string): void {
+    localStorage.removeItem(USER_KEY);
+    localStorage.setItem(USER_KEY, key);
+  }
+
+  public getUserKey(): string {
+    const key = localStorage.getItem(USER_KEY);
+    if (key) {
+      return key;
+    }
+    return "";
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
+    const key = localStorage.getItem(USER_KEY);
+    if (key) {
+      return key;
     }
-
-    return {};
+    return "";
   }
 
+
   public isLoggedIn(): boolean {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
+    const key = localStorage.getItem(USER_KEY);
+    if (key) {
       return true;
     }
-
     return false;
   }
 }
