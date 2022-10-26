@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
 import { StorageService } from '../_services/storage.service';
 
@@ -7,7 +8,7 @@ import { StorageService } from '../_services/storage.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   form: any = {
     username: null,
     password: null
@@ -16,8 +17,15 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  subRef$: Subscription | undefined;
 
   constructor(private authService: AuthService, private storageService: StorageService) { }
+  
+  ngOnDestroy(): void {
+    if (this.subRef$) {
+      this.subRef$.unsubscribe();
+    }
+  }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -29,7 +37,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe
+    this.subRef$=this.authService.login(username, password).subscribe
     ((response) => {
       console.log(response.token)
     });

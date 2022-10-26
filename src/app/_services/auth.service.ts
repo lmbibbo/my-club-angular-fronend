@@ -18,7 +18,7 @@ export class AuthService {
        observe: 'body'}).pipe(
       tap((res: any) => {
         console.log(res);
-        //localStorage.setItem('token-auth',response.token);
+        localStorage.setItem('token-auth',res);
       },(err)=> {
         console.log(err);
       })
