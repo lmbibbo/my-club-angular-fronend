@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.subRef$=this.authService.login(username, password).subscribe
     ((response) => {
-      console.log(response.token)
+      console.log(response)
     });
   
   }
