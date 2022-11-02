@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.subRef$=this.authService.login(username, password).subscribe
     ((response) => {
+      this.storageService.saveUserKey(response);
       console.log(response)
     });
   

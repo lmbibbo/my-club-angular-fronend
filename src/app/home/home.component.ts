@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getPublicContent().subscribe({
       next: data => {
-        this.content = data;
+        this.content = data.message;
       },
       error: err => {
         if (err.error) {

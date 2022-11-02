@@ -12,17 +12,17 @@ export class StorageService {
     localStorage.clear();
   }
 
-  public saveUser(key: string): void {
+  public saveUserKey(key: string): void {
     localStorage.removeItem(USER_KEY);
     localStorage.setItem(USER_KEY, key);
   }
 
-  public getUserKey(): string {
+  public getUserKey(): any {
     const key = localStorage.getItem(USER_KEY);
     if (key) {
       return key;
     }
-    return "";
+    return null;
   }
 
   public getUser(): any {
